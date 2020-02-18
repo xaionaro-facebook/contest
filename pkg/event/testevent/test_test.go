@@ -13,10 +13,23 @@ import (
 	"time"
 
 	"github.com/facebookincubator/contest/pkg/event"
+	"github.com/facebookincubator/contest/pkg/event/internal/unittest"
 	"github.com/stretchr/testify/assert"
 
 	. "github.com/facebookincubator/contest/pkg/event/testevent"
 )
+
+var ( // to enable visibility of these types for TestQueryField_TypeConflicts
+	_ = QueryTestName("")
+	_ = QueryTestStepLabel("")
+)
+
+// TestQueryField_TypeConflicts checks if every field of Query associated with
+// exactly one QueryField.
+func TestQueryField_TypeConflicts(t *testing.T) {
+	unittest.TestQueryFieldTypesAreVisible(t)
+	unittest.TestQueryFieldTypeConflicts(t, &[]QueryField{nil}[0])
+}
 
 func TestBuildQuery_Positive(t *testing.T) {
 	_, err := QueryFields{
